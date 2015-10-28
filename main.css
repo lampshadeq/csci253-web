@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+header, main {
+  width: 75%;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+article, aside {
+  float: left;
+}
+
+article {
+  width: 75%;
+}
+
+aside {
+  width: 25%;
+}
+
+.btn-container {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+
+.btn-container div {
+  margin-top: 2em;
+}
+
+h3, h4 {
+  font-size: 1.5em;
+}
+
+h3 {
+  margin-bottom: 0.5em;
+}
+
+span {
+  display: block;
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 5em;
+  height: 5em;
+  background-color: red;
+}
+
+span:hover {
+  background-color: green;
+  cursor: pointer;
+}
+
+h4 {
+  display: inline-block;
+}
