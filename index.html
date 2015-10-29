@@ -4,6 +4,8 @@
   <title>Musique</title>
   <link rel="stylesheet" type="text/css" href="reset.css">
   <link rel="stylesheet" type="text/css" href="main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="main.js"></script>
 </head>
 <body>
   <header>
@@ -61,25 +63,25 @@
         
         <div>
           <h4>Color Scheme:</h4>
-          <select>
-            <option value="black">Black</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="orange">Orange</option>
-            <option value="pink">Pink</option>
-            <option value="purple">Purple</option>
-            <option value="red" selected>Red</option>
-            <option value="white">White</option>
+          <select class="back off">
+            <option class="black">Off</option>
+            <option class="blue">Off</option>
+            <option class="green">Off</option>
+            <option class="orange">Off</option>
+            <option class="pink">Off</option>
+            <option class="purple">Off</option>
+            <option class="red" selected>Off</option>
+            <option class="white">Off</option>
           </select>
-          <select>
-            <option value="black">Black</option>
-            <option value="blue">Blue</option>
-            <option value="green" selected>Green</option>
-            <option value="orange">Orange</option>
-            <option value="pink">Pink</option>
-            <option value="purple">Purple</option>
-            <option value="red">Red</option>
-            <option value="white">White</option>
+          <select class="back on">
+            <option class="black">On</option>
+            <option class="blue">On</option>
+            <option class="green" selected>On</option>
+            <option class="orange">On</option>
+            <option class="pink">On</option>
+            <option class="purple">On</option>
+            <option class="red">On</option>
+            <option class="white">On</option>
           </select>
         </div>
       </section>
@@ -87,8 +89,8 @@
     
     <aside>
       <h5>Notification Level</h5>
-      <div></div>
-      <h6></h6>
+      <div id="bar"></div>
+      <h6>0</h6>
     </aside>
   </main>
 </body>

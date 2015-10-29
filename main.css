@@ -41,7 +41,7 @@ aside {
   margin-top: 2em;
 }
 
-h3, h4 {
+h3, h4, h5, h6 {
   font-size: 1.5em;
 }
 
@@ -58,11 +58,76 @@ span {
   background-color: red;
 }
 
-span:hover {
+.spanHover {
   background-color: green;
   cursor: pointer;
 }
 
 h4 {
   display: inline-block;
+  width: 20%;
+}
+
+select {
+  width: 35%;
+  font-size: 1.2em;
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+aside {
+  text-align: center;
+}
+
+#bar {
+  width: 25%;
+  margin: 1em auto;
+  border: 1px solid black;
+  position: relative;
+}
+
+.block {
+  width: 100%;
+  background-color: rgb(128,255,0);
+  position: absolute;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+.blue {
+  background-color: blue;
+  color: black;
+}
+
+.green {
+  background-color: green;
+  color: black;
+}
+
+.orange {
+  background-color: orange;
+  color: black;
+}
+
+.pink {
+  background-color: pink;
+  color: black;
+}
+
+.purple {
+  background-color: purple;
+  color: black;
+}
+
+.red {
+  background-color: red;
+  color: black;
+}
+
+.white {
+  background-color: white;
+  color: black;
 }
