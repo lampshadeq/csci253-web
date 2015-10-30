@@ -24,10 +24,24 @@ $(document).ready(function() {
     $(this).css("background-color", $(this).children().filter(":selected").attr("class"));
   });
   
+  // Global variable to hold the current hover class
+  var originalColor = "red";
+  var hoverColor = "green";
+  
   // When a new color choice is selected...
   $(".back").change(function() {
     // Change the background color
     $(this).css("background-color", $(this).children().filter(":selected").attr("class"));
+    
+    // Change the border color (white should have black)
+    if ($(this).hasClass("off")) {
+      if ($(this).css("background-color") == "rgb(255, 255, 255)") {
+        $("span").css("border", "1px solid black");
+      }
+      else {
+        $("span").css("border", "1px solid " + $(this).css("background-color"));
+      }
+    }
     
     // Change the text color
     if ($(this).css("background-color") == "rgb(0, 0, 0)") {
@@ -42,13 +56,31 @@ $(document).ready(function() {
       $("span").css("background-color", $(this).css("background-color"));
     }
     else {
-      $(".spanHover").css("background-color", $(this).css("background-color"));
+      hoverColor = $(this).children().filter(":selected").attr("class");
     }
   });
   
   // When a button is hovered over...
-  // FIXME
   $("span").hover(function() {
-    $(this).toggleClass("spanHover");
+    // Mouse enter
+    originalColor = $(this).css("background-color");
+    $(this).css("background-color", "");
+    if (hoverColor == "white") {
+      $(this).css("border", "1px solid black");
+    }
+    else {
+      $(this).css("border", "");
+    }
+    $(this).addClass(hoverColor);
+  }, function() {
+    // Mouse leave
+    $(this).removeClass(hoverColor);
+    $(this).css("background-color", originalColor);
+    if (originalColor == "rgb(255, 255, 255)") {
+      $(this).css("border", "1px solid black");
+    }
+    else {
+      $(this).css("border", "1px solid " + originalColor);
+    }
   });
 });

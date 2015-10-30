@@ -56,10 +56,6 @@ span {
   width: 5em;
   height: 5em;
   background-color: red;
-}
-
-.spanHover {
-  background-color: green;
   cursor: pointer;
 }
 
