@@ -1,86 +1,186 @@
+// Global variables
+var blockCount = 0;
+var maxBlock = 10;
+
 $(document).ready(function() {
-  // Match aside's height to article
-  $("aside").height($("article").height());
+  // Variables
+  var artHeight = $("article").height();
+  var offColor = "red";
+  var onColor = "green";
   
-  // Adjust the bar height
-  $("#bar").height($("article").height() * 0.85);
+  // Initial adjustments
+  $("aside").height(artHeight);                 // Match aside height to article
+  $("#bar").height(artHeight * 0.85);           // Extend the bar
+  $(".off").css("background-color", offColor);  // Match the default off color
+  $(".on").css("background-color", onColor);    // Match the default on color
   
-  // Test the blocks inside the bar
-  $("#bar").append('<div class="block"></div>');
-  $("#bar").append('<div class="block"></div>');
-  $("#bar").append('<div class="block"></div>');
-  $("#bar").append('<div class="block"></div>');
-  
-  // Change the block heights
-  $(".block").height($("#bar").height() * 0.1);
-  
-  // Push blocks downward
-  $(".block").each(function(i,e) {
-    $(e).css("top", (1 - 0.1 * (i + 1)) * $("#bar").height());
-  });
-  
-  // Change the color background for selected option
-  $(".back").each(function() {
-    $(this).css("background-color", $(this).children().filter(":selected").attr("class"));
-  });
-  
-  // Global variable to hold the current hover class
-  var originalColor = "red";
-  var hoverColor = "green";
-  
-  // When a new color choice is selected...
-  $(".back").change(function() {
-    // Change the background color
-    $(this).css("background-color", $(this).children().filter(":selected").attr("class"));
-    
-    // Change the border color (white should have black)
-    if ($(this).hasClass("off")) {
-      if ($(this).css("background-color") == "rgb(255, 255, 255)") {
-        $("span").css("border", "1px solid black");
-      }
-      else {
-        $("span").css("border", "1px solid " + $(this).css("background-color"));
-      }
+  // Clicking on a button should change the color
+  $("span").click(function() {
+    // Off -> On
+    if ($(this).css("background-color") == rgbColor(offColor)) {
+      $(this).css("background-color", onColor);
     }
     
-    // Change the text color
-    if ($(this).css("background-color") == "rgb(0, 0, 0)") {
+    // On -> Off
+    else {
+      $(this).css("background-color", offColor);
+    }
+    
+    // White requires black border
+    if ($(this).css("background-color") == rgbColor("white")) {
+      $(this).css("border", "1px solid black");
+    }
+    else {
+      $(this).css("border", "");
+    }
+  });
+  
+  // Selected a new off color
+  $(".off").change(function() {
+    // Store the old color
+    var oldColor = offColor;
+    
+    // Update the off color
+    offColor = $(this).children().filter(":selected").attr("class");
+    
+    // Cannot select same color as on
+    if (offColor == onColor) {
+      offColor = oldColor;
+      return;
+    }
+    
+    // Update the bg for the selection dropdown
+    $(this).css("background-color", offColor);
+    
+    // Black bg needs white text
+    if (offColor == "black") {
       $(this).css("color", "white");
     }
     else {
       $(this).css("color", "black");
     }
     
-    // Change the button color
-    if ($(this).hasClass("off")) {
-      $("span").css("background-color", $(this).css("background-color"));
-    }
-    else {
-      hoverColor = $(this).children().filter(":selected").attr("class");
-    }
+    // Update the off buttons' color
+    $("span").each(function() {
+      if ($(this).css("background-color") == rgbColor(oldColor)) {
+        $(this).css("background-color", offColor);
+        
+        // White requires black border
+        if (offColor == "white") {
+          $(this).css("border", "1px solid black");
+        }
+        else {
+          $(this).css("border", "");
+        }
+      }
+    });
   });
   
-  // When a button is hovered over...
-  $("span").hover(function() {
-    // Mouse enter
-    originalColor = $(this).css("background-color");
-    $(this).css("background-color", "");
-    if (hoverColor == "white") {
-      $(this).css("border", "1px solid black");
+  // Selected a new on color
+  $(".on").change(function() {
+    // Store the old color
+    var oldColor = onColor;
+    
+    // Update the on color
+    onColor = $(this).children().filter(":selected").attr("class");
+    
+    // Cannot select same color as off
+    if (onColor == offColor) {
+      onColor = oldColor;
+      return;
+    }
+    
+    // Update the bg for the selection dropdown
+    $(this).css("background-color", onColor);
+    
+    // Black bg needs white text
+    if (onColor == "black") {
+      $(this).css("color", "white");
     }
     else {
-      $(this).css("border", "");
+      $(this).css("color", "black");
     }
-    $(this).addClass(hoverColor);
-  }, function() {
-    // Mouse leave
-    $(this).removeClass(hoverColor);
-    $(this).css("background-color", originalColor);
-    if (originalColor == "rgb(255, 255, 255)") {
-      $(this).css("border", "1px solid black");
-    }
-    else {
-      $(this).css("border", "1px solid " + originalColor);
-    }
+    
+    // Update the on buttons' color
+    $("span").each(function() {
+      if ($(this).css("background-color") == rgbColor(oldColor)) {
+        $(this).css("background-color", onColor);
+        
+        // White requires black border
+        if (onColor == "white") {
+          $(this).css("border", "1px solid black");
+        }
+        else {
+          $(this).css("border", "");
+        }
+      }
+    });
   });
 });
+
+// Map color names to rgb equivalent
+function rgbColor(c) {
+  switch (c) {
+    case "black":
+      return "rgb(0, 0, 0)";
+      
+    case "blue":
+      return "rgb(0, 0, 255)";
+      
+    case "green":
+      return "rgb(0, 128, 0)";
+      
+    case "orange":
+      return "rgb(255, 165, 0)";
+      
+    case "pink":
+      return "rgb(255, 192, 203)";
+      
+    case "purple":
+      return "rgb(128, 0, 128)";
+      
+    case "red":
+      return "rgb(255, 0, 0)";
+      
+    case "white":
+      return "rgb(255, 255, 255)";
+  }
+}
+
+// Place a new block in the correct position in the bar
+function addBlock() {
+  // Update the maximum number of blocks by 5
+  if (blockCount == maxBlock) {
+    maxBlock += 5;
+  }
+  
+  // Create the block
+  $("#bar").append('<div class="block"></div>');
+  
+  // Change the height of the block
+  $(".block").height($("#bar").height() * (1 / maxBlock));
+  
+  // Push the block into place
+  $(".block").each(function(i,e) {
+    $(e).css("top", (1 - (1 / maxBlock) * (i + 1)) * $("#bar").height());
+  });
+  
+  // Update count
+  blockCount++;
+  $("h6").text(blockCount);
+}
+
+// Remove a block from the bar
+function removeBlock() {
+  // No blocks so nothing to remove
+  if (blockCount == 0) {
+    return;
+  }
+  
+  // Remove a block
+  $("#bar").children().last().remove();
+  
+  // Update count
+  blockCount--;
+  $("h6").text(blockCount);
+}
