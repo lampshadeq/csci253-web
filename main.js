@@ -116,6 +116,22 @@ $(document).ready(function() {
       }
     });
   });
+  
+  // Selected a new sound
+  $(".snd").change(function() {
+    // Change the source
+    $("source").attr("src",
+      "sounds/" +
+      $(this).children().filter(":selected").attr("value") + ".mp3");
+      
+    // Reload the audio
+    $("audio")[0].load();
+    
+    // Play the audio
+    if (blockCount != 0) {
+      $("audio")[0].play();
+    }
+  });
 });
 
 // Map color names to rgb equivalent
@@ -168,6 +184,14 @@ function addBlock() {
   // Update count
   blockCount++;
   $("h6").text(blockCount);
+  
+  // Adjust the audio volume
+  $("audio")[0].volume = blockCount / maxBlock;
+  
+  // Play the audio if paused
+  if ($("audio")[0].paused) {
+    $("audio")[0].play();
+  }
 }
 
 // Remove a block from the bar
@@ -183,4 +207,7 @@ function removeBlock() {
   // Update count
   blockCount--;
   $("h6").text(blockCount);
+  
+  // Adjust the audio volume
+  $("audio")[0].volume = blockCount / maxBlock;
 }

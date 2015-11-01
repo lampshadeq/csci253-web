@@ -1,5 +1,18 @@
 * {
   box-sizing: border-box;
+  font-family: "Palanquin", sans-serif;
+}
+
+html {
+  background-image: url("img/bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+body {
+  font-family: "Palanquin", sans-serif;
 }
 
 header, main {
@@ -9,14 +22,18 @@ header, main {
 
 header {
   text-align: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 1em;
 }
 
 h1 {
   font-size: 3em;
+  margin-bottom: 0.1em;
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 1.8em;
+  margin-bottom: 0.5em;
 }
 
 article, aside {
