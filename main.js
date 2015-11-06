@@ -7,6 +7,7 @@ $(document).ready(function() {
   var artHeight = $("article").height();
   var offColor = "red";
   var onColor = "green";
+  var device = false;
   
   // Initial adjustments
   $("aside").height(artHeight);                 // Match aside height to article
@@ -16,22 +17,50 @@ $(document).ready(function() {
   
   // Clicking on a button should change the color
   $("span").click(function() {
-    // Off -> On
-    if ($(this).css("background-color") == rgbColor(offColor)) {
-      $(this).css("background-color", onColor);
+    // Device is being turned on or off
+    if ($(this).hasClass("dev")) {
+      device = !device;
+      
+      // Off -> On
+      if ($(this).css("background-color") == rgbColor(offColor)) {
+        $(this).css("background-color", onColor);
+      }
+      
+      // On -> Off
+      else {
+        $(this).css("background-color", offColor);
+      }
+      
+      // White requires black border
+      if ($(this).css("background-color") == rgbColor("white")) {
+        $(this).css("border", "1px solid black");
+      }
+      else {
+        $(this).css("border", "");
+      }
+      
+      return;
     }
     
-    // On -> Off
-    else {
-      $(this).css("background-color", offColor);
-    }
-    
-    // White requires black border
-    if ($(this).css("background-color") == rgbColor("white")) {
-      $(this).css("border", "1px solid black");
-    }
-    else {
-      $(this).css("border", "");
+    // Only change filters if device is on
+    if (device) {
+      // Off -> On
+      if ($(this).css("background-color") == rgbColor(offColor)) {
+        $(this).css("background-color", onColor);
+      }
+      
+      // On -> Off
+      else {
+        $(this).css("background-color", offColor);
+      }
+      
+      // White requires black border
+      if ($(this).css("background-color") == rgbColor("white")) {
+        $(this).css("border", "1px solid black");
+      }
+      else {
+        $(this).css("border", "");
+      }
     }
   });
   
