@@ -161,6 +161,59 @@ $(document).ready(function() {
       $("audio")[0].play();
     }
   });
+  
+  // Grab notifications every 5 seconds
+  setInterval(getNotif, 5000);
+
+  // Grab the data from Facebook
+  function getNotif() {
+    // Exit if device is off
+    if (!device) {
+      return;
+    }
+    
+    // Get filter list
+    var filt = [0, 0, 0, 0, 0, 0, 0];
+    for (var i = 0; i < 7; i++) {
+      if ($(filterId(i)).css("background-color") == rgbColor(onColor)) {
+        filt[i] = 1;
+      }
+    }
+    
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if ((req.readyState == 4) && (req.status == 200)) {
+        // Variables
+        var s = req.responseText;
+        var oldCount = blockCount;
+        
+        // Adjust the notification bar
+        var diff = parseInt(s) - oldCount;
+        if (diff > 0) {
+          // Add bars
+          for (var i = 0; i < diff; i++) {
+            addBlock();
+          }
+        }
+        else if (diff < 0) {
+          // Remove bars
+          diff *= -1;
+          for (var i = 0; i < diff; i++) {
+            removeBlock();
+          }
+        }
+      }
+    };
+    req.open("GET", "load.php?" +
+             "like="    + filt[0].toString() + "&" +
+             "comment=" + filt[1].toString() + "&" +
+             "tag="     + filt[2].toString() + "&" +
+             "group="   + filt[3].toString() + "&" +
+             "bday="    + filt[4].toString() + "&" +
+             "msg="     + filt[5].toString() + "&" +
+             "friend="  + filt[6].toString(),  true);
+    req.send();
+  }
 });
 
 // Map color names to rgb equivalent
@@ -189,6 +242,32 @@ function rgbColor(c) {
       
     case "white":
       return "rgb(255, 255, 255)";
+  }
+}
+
+// Map index to filter id
+function filterId(i) {
+  switch (i) {
+    case 0:
+      return "#like";
+      
+    case 1:
+      return "#cmnt";
+      
+    case 2:
+      return "#tag";
+      
+    case 3:
+      return "#group";
+      
+    case 4:
+      return "#bday";
+      
+    case 5:
+      return "#msg";
+      
+    case 6:
+      return "#friend";
   }
 }
 
